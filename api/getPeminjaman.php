@@ -9,5 +9,5 @@ if(isset($_GET['id_peminjaman'])){
     $data=$buku->getPeminjaman();
 }
 $format=new DataFormat();
-$format->asJSONAll($data);
-echo $format->asJSONAll($data);
+$format->asJSON($data);
+echo $format->asJSON($data);

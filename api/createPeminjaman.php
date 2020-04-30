@@ -4,6 +4,7 @@ include_once(__DIR__."/../lib/DataFormat.php");
 header("Access-Control-Allow-Methods: POST");
 $buku = new Buku();
 
+$id_peminjaman = isset($_GET['id_peminjaman']) ? $_GET['id_peminjaman']: null;
 $id_buku = isset($_GET['id_buku']) ? $_GET['id_buku']: null;
 $id_peminjam = isset($_GET['id_peminjam']) ? $_GET['id_peminjam']: null;
 $tanggal_pesan = isset($_GET['tanggal_pesan']) ? $_GET['tanggal_pesan']: null;
@@ -16,7 +17,7 @@ $status = isset($_GET['status']) ? $_GET['status']: null;
 $pp = isset($_GET['pp']) ? $_GET['pp']: null;
 
 
-$buku->setValue($id_buku, $id_peminjam, $tanggal_pesan, $jam_pesan, $expired_date, $tanggal_pinjam, 
+$buku->setValue($id_peminjaman, $id_buku, $id_peminjam, $tanggal_pesan, $jam_pesan, $expired_date, $tanggal_pinjam, 
 $batas_kembali, $tanggal_pengembalian, $status, $pp);
 $result = $buku->createPeminjaman();
 $format= new DataFormat();

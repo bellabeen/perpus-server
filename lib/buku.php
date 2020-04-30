@@ -25,10 +25,11 @@ class Buku{
         }
     }
 
-    function setValue($id_buku, $id_peminjam, $tanggal_pesan, $jam_pesan, $expired_date,
+    function setValue($id_peminjaman, $id_buku, $id_peminjam, $tanggal_pesan, $jam_pesan, $expired_date,
     $tanggal_pinjam, $batas_kembali, $tanggal_pengembalian, $status, $pp){
         // $this();
         // $this->id = $id;
+        $this->id_peminjaman = $id_peminjaman;
         $this->id_buku = $id_buku;
         $this->id_peminjam = $id_peminjam;
         $this->tanggal_pesan = $tanggal_pesan;
@@ -77,53 +78,53 @@ class Buku{
         }
     }
 
-    //fungsi update data
-    function update($id, $suhu, $kelembapan_udara, $kelembapan_tanah, $ph){
-        $hasil= $this->getSensorPilihan($id);
-        $count=count($hasil["data"]);
-        if ($count==0){ 
-            http_response_code(503);
-            return array('msg' => "Data tidak  ada, tidak dapat disimpan" );
-        }
-        else if ($id  == null){
-            http_response_code(503);
-            return array('msg' => "Kode tidak boleh kosong, tidak berhasil disimpan" );
-        } else {
-            $this->setValue($hasil["data"][0]["suhu"],
-            $hasil["data"][0]["kelembapan_udara"],
-            $hasil["data"][0]["kelembapan_tanah"],
-            $hasil["data"][0]["ph"]
-                    );
+    // //fungsi update data
+    // function update($id, $suhu, $kelembapan_udara, $kelembapan_tanah, $ph){
+    //     $hasil= $this->getPeminjamanPilihan($id_peminjaman);
+    //     $count=count($hasil["data"]);
+    //     if ($count==0){ 
+    //         http_response_code(503);
+    //         return array('msg' => "Data tidak  ada, tidak dapat disimpan" );
+    //     }
+    //     else if ($id  == null){
+    //         http_response_code(503);
+    //         return array('msg' => "Kode tidak boleh kosong, tidak berhasil disimpan" );
+    //     } else {
+    //         $this->setValue($hasil["data"][0]["suhu"],
+    //         $hasil["data"][0]["kelembapan_udara"],
+    //         $hasil["data"][0]["kelembapan_tanah"],
+    //         $hasil["data"][0]["ph"]
+    //                 );
 
-            if ($suhu!=null) $this->suhu=$suhu;
-            if ($kelembapan_udara!=null) $this->kelembapan_udara=$kelembapan_udara;
-            if ($kelembapan_tanah!=null) $this->kelembapan_tanah=$kelembapan_tanah;
-            if ($ph!=null) $this->ph=$ph;
+    //         if ($suhu!=null) $this->suhu=$suhu;
+    //         if ($kelembapan_udara!=null) $this->kelembapan_udara=$kelembapan_udara;
+    //         if ($kelembapan_tanah!=null) $this->kelembapan_tanah=$kelembapan_tanah;
+    //         if ($ph!=null) $this->ph=$ph;
 
-            $kueri .= "suhu='".$this->suhu ."',";
-            $kueri .= "kelembapan_udara='".$this->kelembapan_udara ."',";
-            $kueri .= "kelembapan_tanah='".$this->kelembapan_tanah ."',";
-            $kueri .= "ph='".$this->ph."'";
+    //         $kueri .= "suhu='".$this->suhu ."',";
+    //         $kueri .= "kelembapan_udara='".$this->kelembapan_udara ."',";
+    //         $kueri .= "kelembapan_tanah='".$this->kelembapan_tanah ."',";
+    //         $kueri .= "ph='".$this->ph."'";
 
 
-            $kueri = "UPDATE ".$this->table_name." SET ";
-            $kueri .= "suhu='".$this->suhu ."',";
-            $kueri .= "kelembapan_udara='".$this->kelembapan_udara."',";
-            $kueri .= "kelembapan_tanah='".$this->kelembapan_tanah."',";
-            $kueri .= "ph='".$this->ph ."'";
+    //         $kueri = "UPDATE ".$this->table_name." SET ";
+    //         $kueri .= "suhu='".$this->suhu ."',";
+    //         $kueri .= "kelembapan_udara='".$this->kelembapan_udara."',";
+    //         $kueri .= "kelembapan_tanah='".$this->kelembapan_tanah."',";
+    //         $kueri .= "ph='".$this->ph ."'";
             
-            $kueri .= " WHERE id='".$this->id."'";
-            $hasil = $this->db->query($kueri);
-            if ($hasil){
-                http_response_code(201);
-                return array('msg'=>'success');
-            } else {
-                http_response_code(503);
-                return array('msg'=>'Data Gagal Disimpan '.$this->db->error." ".$kueri); 
-            }
-            // return array('msg'=>$kueri);
-        }
-    }
+    //         $kueri .= " WHERE id='".$this->id."'";
+    //         $hasil = $this->db->query($kueri);
+    //         if ($hasil){
+    //             http_response_code(201);
+    //             return array('msg'=>'success');
+    //         } else {
+    //             http_response_code(503);
+    //             return array('msg'=>'Data Gagal Disimpan '.$this->db->error." ".$kueri); 
+    //         }
+    //         // return array('msg'=>$kueri);
+    //     }
+    // }
     
     function getPeminjaman(){
         // return "test";
@@ -209,13 +210,13 @@ class Buku{
 
     ///fungsi delete data Peminjaman
     function deletePeminjaman($id_peminjaman){
-        // return "test";
+            // return "test";
         $data="";
         $row = $this->getPeminjamanPilihan($id_peminjaman);
         if (count($row["data"])==0) {
             http_response_code(304);
-            return array("msg"=>$row["msg"]."id_peminjaman ".$id_peminjaman);
-            return array('msg'=>$kueri);
+            // return array("msg"=>$row["msg"]."id_peminjaman ".$id_peminjaman);
+            // return array('msg'=>$kueri);
         }
 
         $kueri = "DELETE FROM ".$this->table_name;

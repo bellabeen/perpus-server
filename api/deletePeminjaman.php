@@ -7,7 +7,7 @@ header("Access-Control-Allow-Methods: DELETE");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$buku = new Buku();
-$result = $buku->deletePeminjaman($_POST['id_peminjaman']);
+$peminjamanpilihan = new Buku();
+$result = $peminjamanpilihan->deletePeminjaman($_POST['id_peminjaman']);
 $format= new DataFormat();
 echo $format->asJSON($result);
